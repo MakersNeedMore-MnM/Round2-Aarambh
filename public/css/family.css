@@ -1,0 +1,163 @@
+/* family.css — the caregiver's console.
+   Deliberately the opposite of the elder's screen: dim, dense, scannable in
+   ten seconds at 11pm, with the one thing that needs a decision pulled to
+   the top. Colour never carries meaning alone; every state is also a word. */
+
+:root {
+  --bg: #0E1319;
+  --panel: #151C25;
+  --panel-2: #1B2431;
+  --line: #26313F;
+  --line-soft: #1E2833;
+  --text: #E8EEF4;
+  --dim: #8FA0B0;
+  --dimmer: #647486;
+  --mint: #5FD3B2;
+  --mint-dim: #21473C;
+  --amber: #F2B441;
+  --amber-dim: #46351A;
+  --rose: #F08A7C;
+  --rose-dim: #452421;
+  --focus: #5FD3B2;
+}
+
+body.family {
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.55;
+  min-height: 100vh;
+}
+
+.shell { max-width: 78rem; margin: 0 auto; padding: 0 1.5rem 4rem; }
+
+/* -------------------------------------------------------------- header */
+
+.masthead {
+  display: flex; align-items: center; gap: 1.2rem; flex-wrap: wrap;
+  padding: 1.15rem 0; border-bottom: 1px solid var(--line); margin-bottom: 1.6rem;
+}
+.masthead .brand__mark { width: 2rem; height: 2rem; border-radius: 8px; background: var(--mint); color: #08110E; display: grid; place-items: center; font-weight: 700; }
+.who { margin-right: auto; }
+.who h1 { font-size: 1.12rem; margin: 0; letter-spacing: -.01em; font-weight: 650; }
+.who p { margin: .1rem 0 0; font-size: .82rem; color: var(--dim); }
+.who .dot { display: inline-block; width: .5rem; height: .5rem; border-radius: 50%; background: var(--mint); margin-right: .4rem; vertical-align: middle; }
+.ghost {
+  background: transparent; border: 1px solid var(--line); color: var(--dim);
+  border-radius: 8px; padding: .5rem .8rem; font-size: .84rem; font-weight: 550;
+}
+.ghost:hover { border-color: var(--mint); color: var(--mint); }
+.ghost[data-on="true"] { border-color: var(--mint); color: var(--mint); background: #12291F; }
+
+/* ------------------------------------------------------------ headline */
+
+.status {
+  display: grid; grid-template-columns: minmax(0,1.5fr) repeat(2, minmax(0,1fr));
+  gap: 1rem; margin-bottom: 1.6rem;
+}
+.stat { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 1.15rem 1.25rem; }
+.stat h2 { margin: 0 0 .7rem; font-size: .82rem; font-weight: 600; color: var(--dim); }
+.stat .big { font-size: 2.1rem; font-weight: 680; letter-spacing: -.02em; font-variant-numeric: tabular-nums; line-height: 1.1; }
+.stat .sub { font-size: .84rem; color: var(--dim); margin-top: .25rem; }
+
+.attention { border-color: var(--amber); background: linear-gradient(180deg, rgba(242,180,65,.09), transparent 70%), var(--panel); }
+.attention .big { color: var(--amber); }
+.calm .big { color: var(--mint); }
+
+.ring { display: flex; align-items: center; gap: 1rem; }
+.ring svg { flex: 0 0 auto; }
+.ring__num { font-size: 1.9rem; font-weight: 680; font-variant-numeric: tabular-nums; }
+
+/* --------------------------------------------------------------- grid */
+
+.grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 1.2rem; align-items: start; }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; margin-bottom: 1.2rem; overflow: hidden; }
+.panel > header {
+  display: flex; align-items: baseline; gap: .7rem;
+  padding: 1rem 1.25rem .85rem; border-bottom: 1px solid var(--line-soft);
+}
+.panel > header h2 { margin: 0; font-size: .97rem; font-weight: 640; }
+.panel > header .meta { margin-left: auto; font-size: .8rem; color: var(--dimmer); }
+.panel .body { padding: 1rem 1.25rem 1.25rem; }
+.empty { color: var(--dimmer); font-size: .88rem; padding: .4rem 0 .2rem; }
+
+/* ------------------------------------------------------- dose schedule */
+
+.dose { display: grid; grid-template-columns: 4.6rem 1fr auto; gap: 1rem; padding: .85rem 0; border-top: 1px solid var(--line-soft); align-items: center; }
+.dose:first-child { border-top: 0; padding-top: .2rem; }
+.dose__time { font-variant-numeric: tabular-nums; color: var(--dim); font-size: .87rem; font-weight: 600; }
+.dose__name { font-weight: 600; }
+.dose__meta { font-size: .82rem; color: var(--dimmer); }
+.chip { font-size: .76rem; font-weight: 650; padding: .28rem .6rem; border-radius: 999px; white-space: nowrap; border: 1px solid transparent; }
+.chip--ok { background: var(--mint-dim); color: var(--mint); }
+.chip--wait { background: var(--amber-dim); color: var(--amber); }
+.chip--idle { background: #1E2731; color: var(--dim); }
+.chip--crit { background: transparent; border-color: var(--rose-dim); color: var(--rose); }
+
+/* -------------------------------------------------------------- alerts */
+
+.alert { display: flex; gap: .85rem; padding: .9rem 0; border-top: 1px solid var(--line-soft); }
+.alert:first-child { border-top: 0; padding-top: .2rem; }
+.alert__mark { width: .55rem; height: .55rem; border-radius: 50%; margin-top: .5rem; flex: 0 0 auto; background: var(--dimmer); }
+.alert--high .alert__mark { background: var(--rose); }
+.alert--normal .alert__mark { background: var(--amber); }
+.alert--info .alert__mark { background: var(--mint); }
+.alert h3 { margin: 0 0 .15rem; font-size: .9rem; font-weight: 640; }
+.alert p { margin: 0; font-size: .85rem; color: var(--dim); line-height: 1.5; }
+.alert time { font-size: .76rem; color: var(--dimmer); margin-left: auto; white-space: nowrap; }
+
+/* ----------------------------------------------------------- adherence */
+
+.bars { display: flex; align-items: flex-end; gap: .5rem; height: 6.5rem; margin-bottom: .6rem; }
+.bars div { flex: 1; background: var(--mint-dim); border-radius: 4px 4px 0 0; position: relative; min-height: 3px; }
+.bars div > span { position: absolute; inset: auto 0 0 0; background: var(--mint); border-radius: 4px 4px 0 0; }
+.bars-x { display: flex; gap: .5rem; font-size: .72rem; color: var(--dimmer); }
+.bars-x span { flex: 1; text-align: center; }
+
+/* ------------------------------------------------------------ reports */
+
+.report { border: 1px solid var(--line); border-radius: 12px; padding: .95rem 1.05rem; margin-bottom: .8rem; background: var(--panel-2); }
+.report h3 { margin: 0; font-size: .92rem; font-weight: 640; }
+.report .when { font-size: .78rem; color: var(--dimmer); margin-bottom: .6rem; }
+.report p.head { margin: 0 0 .7rem; font-size: .88rem; color: var(--dim); line-height: 1.55; }
+.values { display: flex; flex-wrap: wrap; gap: .4rem; }
+.value { font-size: .79rem; padding: .3rem .6rem; border-radius: 7px; background: #202B37; color: var(--dim); font-variant-numeric: tabular-nums; }
+.value.out { background: var(--amber-dim); color: var(--amber); }
+.report details { margin-top: .8rem; }
+.report summary { font-size: .82rem; color: var(--mint); cursor: pointer; }
+.report dl { margin: .7rem 0 0; font-size: .85rem; }
+.report dt { color: var(--dimmer); font-size: .78rem; margin-top: .6rem; }
+.report dd { margin: .1rem 0 0; color: var(--dim); line-height: 1.55; }
+
+/* ----------------------------------------------------------- timeline */
+
+.rail { position: relative; padding-left: 1.35rem; }
+.rail::before { content: ''; position: absolute; left: .32rem; top: .4rem; bottom: .4rem; width: 1px; background: var(--line); }
+.node { position: relative; padding: 0 0 1.15rem; }
+.node::before {
+  content: ''; position: absolute; left: -1.35rem; top: .38rem;
+  width: .68rem; height: .68rem; border-radius: 50%; background: var(--bg); border: 2px solid var(--mint);
+}
+.node--upcoming::before { border-color: var(--dimmer); }
+.node time { font-size: .76rem; color: var(--dimmer); }
+.node h3 { margin: .1rem 0 .15rem; font-size: .89rem; font-weight: 640; }
+.node p { margin: 0; font-size: .84rem; color: var(--dim); line-height: 1.5; }
+
+/* ----------------------------------------------------------- unlinked */
+
+.connect { max-width: 30rem; margin: 4rem auto; background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 2rem; }
+.connect h1 { font-size: 1.3rem; margin: 0 0 .5rem; }
+.connect p { color: var(--dim); font-size: .92rem; line-height: 1.65; margin: 0 0 1.4rem; }
+.connect input {
+  width: 100%; padding: .9rem; font-size: 1.3rem; letter-spacing: .3em; text-align: center; text-transform: uppercase;
+  background: var(--bg); border: 1px solid var(--line); border-radius: 10px; color: var(--text);
+}
+.connect .btn-primary { background: var(--mint); color: #06120E; }
+.connect .note { font-size: .84rem; color: var(--dimmer); margin-top: 1.2rem; }
+
+.pagenote { color: var(--dimmer); font-size: .8rem; line-height: 1.6; border-top: 1px solid var(--line); padding-top: 1.1rem; margin-top: .6rem; }
+
+@media (max-width: 960px) {
+  .status { grid-template-columns: 1fr; }
+  .grid { grid-template-columns: 1fr; }
+}

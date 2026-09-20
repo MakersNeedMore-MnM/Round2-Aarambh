@@ -1,0 +1,18 @@
+City Diagnostics — Laboratory Report
+Patient: (name withheld)          Age: 71
+Collected: 14 Feb                 Report: 15 Feb
+
+HbA1c: 8.2 %
+Fasting glucose: 142 mg/dL
+eGFR: 64 mL/min
+Creatinine: 1.2 mg/dL
+Total cholesterol: 214 mg/dL
+LDL cholesterol: 138 mg/dL
+HDL cholesterol: 44 mg/dL
+Triglycerides: 168 mg/dL
+Haemoglobin: 13.4 g/dL
+TSH: 3.1 uIU/mL
+Vitamin D: 18 ng/mL
+Vitamin B12: 260 pg/mL
+Uric acid: 6.4 mg/dL
+SGPT: 38 U/L

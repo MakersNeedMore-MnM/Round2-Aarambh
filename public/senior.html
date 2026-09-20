@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CareMate</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230B5C52'/><path d='M16 24s-7-4.4-7-9.2A4 4 0 0 1 16 12a4 4 0 0 1 7 2.8C23 19.6 16 24 16 24z' fill='%23FDFBF6'/></svg>">
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/css/senior.css">
+</head>
+<body class="senior">
+
+<div class="banner" id="banner" hidden>
+  <span aria-hidden="true">🔔</span><span id="bannerText"></span>
+</div>
+
+<header class="top">
+  <div class="top__greet">
+    <span id="greeting">Good morning</span>
+    <small id="todayLabel"></small>
+  </div>
+  <button type="button" id="langBtn">भाषा बदलें</button>
+  <button type="button" id="signOut">Sign out</button>
+</header>
+
+<div class="wrap">
+  <nav class="tabs" role="tablist" aria-label="CareMate sections">
+    <button class="tab" role="tab" data-tab="home" aria-selected="true"><span class="glyph" aria-hidden="true">💊</span><span data-t="tabHome">Today</span></button>
+    <button class="tab" role="tab" data-tab="report" aria-selected="false"><span class="glyph" aria-hidden="true">📋</span><span data-t="tabReport">My report</span></button>
+    <button class="tab" role="tab" data-tab="story" aria-selected="false"><span class="glyph" aria-hidden="true">🪴</span><span data-t="tabStory">Learn</span></button>
+    <button class="tab" role="tab" data-tab="family" aria-selected="false"><span class="glyph" aria-hidden="true">❤️</span><span data-t="tabFamily">Family</span></button>
+  </nav>
+
+  <!-- TODAY -->
+  <section id="panel-home" role="tabpanel">
+    <div class="card-lg next" id="nextCard"></div>
+    <div class="card-lg">
+      <h2 data-t="todayList">Today’s medicines</h2>
+      <div id="medList"></div>
+    </div>
+
+    <div class="card-lg">
+      <h2 id="rxTitle">Add medicines from a prescription</h2>
+      <p id="rxIntro" style="margin-top:0"></p>
+      <textarea class="big" id="rxText" aria-label="Prescription text"></textarea>
+      <div class="row">
+        <button class="btn-main" id="rxReadBtn"></button>
+        <button class="btn-ghost" id="rxSampleBtn"></button>
+      </div>
+      <p id="rxNote" style="color:var(--amber)"></p>
+      <div id="rxCandidates"></div>
+    </div>
+  </section>
+
+  <!-- REPORT -->
+  <section id="panel-report" role="tabpanel" hidden>
+    <div class="card-lg">
+      <h2 data-t="reportTitle">Understand a report</h2>
+      <p id="reportIntro" style="margin-top:0"></p>
+      <textarea class="big" id="reportText" aria-label="Report text"></textarea>
+      <div class="row">
+        <button class="btn-main" id="explainBtn" data-t="explainBtn">Explain this to me</button>
+        <button class="btn-ghost" id="sampleBtn" data-t="sample">Use a sample report</button>
+        <button class="btn-ghost" id="fileBtn" data-t="uploadBtn">Choose a file</button>
+        <input type="file" id="fileInput" accept=".txt,.csv,image/*" hidden>
+      </div>
+      <p id="reportNote" style="color:var(--amber)"></p>
+    </div>
+    <div id="reportResult"></div>
+  </section>
+
+  <!-- STORYCARE -->
+  <section id="panel-story" role="tabpanel" hidden>
+    <div class="card-lg">
+      <h2 data-t="storyTitle">Learn with a story</h2>
+      <p id="storyIntro" style="margin-top:0"></p>
+      <div class="row" style="margin-bottom:1.2rem">
+        <input class="big" id="askInput" style="min-height:68px;flex:1 1 16rem" aria-label="Ask about a word">
+        <button class="btn-main" id="askBtn" style="flex:0 1 auto" data-t="askBtn">Explain this word</button>
+      </div>
+      <div class="topics" id="topicList"></div>
+    </div>
+    <div id="storyResult"></div>
+  </section>
+
+  <!-- FAMILY -->
+  <section id="panel-family" role="tabpanel" hidden>
+    <div class="card-lg">
+      <h2 data-t="familyTitle">Your family link</h2>
+      <p style="margin-top:0" data-t="careCodeHelp"></p>
+      <div class="code" id="careCode">------</div>
+      <div id="linkList"></div>
+      <p class="foot-note" data-t="whatTheySee"></p>
+    </div>
+  </section>
+
+  <p class="foot-note" id="disclaimer"></p>
+</div>
+
+<div class="overlay" id="overlay" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <h3 id="modalTitle"></h3>
+    <p id="modalBody"></p>
+    <div class="row">
+      <button class="btn-ghost" id="modalCancel" style="flex:1 1 8rem"></button>
+      <button class="btn-danger" id="modalConfirm" style="flex:1 1 8rem"></button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" hidden role="status"></div>
+
+<script src="/js/i18n.js"></script>
+<script src="/js/client.js"></script>
+<script src="/js/senior.js"></script>
+</body>
+</html>

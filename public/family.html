@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CareMate — family view</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%235FD3B2'/><path d='M16 24s-7-4.4-7-9.2A4 4 0 0 1 16 12a4 4 0 0 1 7 2.8C23 19.6 16 24 16 24z' fill='%2308110E'/></svg>">
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/css/family.css">
+</head>
+<body class="family">
+<div class="shell">
+  <header class="masthead">
+    <div class="brand__mark">C</div>
+    <div class="who">
+      <h1 id="whoName">CareMate</h1>
+      <p id="whoMeta"></p>
+    </div>
+    <button class="ghost" id="notifyBtn" data-on="false">Turn on alerts</button>
+    <button class="ghost" id="langBtn">हिन्दी</button>
+    <button class="ghost" id="signOut">Sign out</button>
+  </header>
+
+  <main id="main"></main>
+
+  <p class="pagenote" id="pagenote"></p>
+</div>
+
+<script src="/js/i18n.js"></script>
+<script src="/js/client.js"></script>
+<script src="/js/family.js"></script>
+</body>
+</html>

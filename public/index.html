@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CareMate — sign in</title>
+<meta name="description" content="CareMate explains medical reports in plain language, remembers medicines, and keeps family in the loop with the elder's consent.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%235FD3B2'/><path d='M16 24s-7-4.4-7-9.2A4 4 0 0 1 16 12a4 4 0 0 1 7 2.8C23 19.6 16 24 16 24z' fill='%2308110E'/></svg>">
+<link rel="stylesheet" href="/css/base.css">
+</head>
+<body>
+<main class="auth">
+  <section class="auth__story">
+    <div class="brand">
+      <div class="brand__mark">C</div>
+      <div class="brand__name">CareMate <span>· understand, learn, care</span></div>
+    </div>
+
+    <div>
+      <h1 class="auth__lead">The person who needs the care is not always the person using the technology.</h1>
+      <p class="auth__sub">CareMate reads a lab report or prescription, explains it in plain Hindi or English, speaks it aloud, and keeps one family member informed — only for as long as the elder allows it.</p>
+
+      <div class="pillars">
+        <div>
+          <h3>Understand</h3>
+          <p>Reports turned into sentences a person can actually act on.</p>
+        </div>
+        <div>
+          <h3>Learn</h3>
+          <p>Familiar analogies that make a concept stick, not a textbook paragraph.</p>
+        </div>
+        <div>
+          <h3>Care</h3>
+          <p>Confirmations shared with family, revocable at any moment.</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="auth__foot">CareMate explains health information. It does not diagnose, prescribe, or replace a doctor.<br>Medication reminders are created only from a prescription a person has confirmed.</p>
+  </section>
+
+  <section class="auth__panel">
+    <div class="card">
+      <h1 id="formTitle">Sign in</h1>
+      <p class="hint" id="formHint">Two modes, one account each: a simplified screen for the elder, and a fuller view for the family member who helps.</p>
+
+      <div class="roles" id="roleRow" hidden>
+        <button type="button" class="role" data-role="senior" aria-pressed="true">
+          <strong>I am the one being cared for</strong>
+          <span>Large text, voice, one button per medicine</span>
+        </button>
+        <button type="button" class="role" data-role="caregiver" aria-pressed="false">
+          <strong>I am helping a family member</strong>
+          <span>Reminders, timeline and shared reports</span>
+        </button>
+      </div>
+
+      <form id="authForm" novalidate>
+        <div class="field" id="nameField" hidden>
+          <label for="name">Full name</label>
+          <input id="name" name="name" autocomplete="name" placeholder="As you would like it shown">
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password" autocomplete="current-password" placeholder="At least 6 characters" required>
+        </div>
+        <div class="field" id="langField" hidden>
+          <label for="language">Language for explanations</label>
+          <select id="language" name="language">
+            <option value="en">English</option>
+            <option value="hi">हिन्दी (Hindi)</option>
+          </select>
+        </div>
+        <button class="btn-primary" id="submitBtn" type="submit">Sign in</button>
+        <p class="notice" id="notice" role="alert"></p>
+      </form>
+
+      <p class="switcher" id="switcher">New to CareMate? <button type="button" id="toggleMode">Create an account</button></p>
+
+      <div class="demo">
+        Try the two modes with the demo accounts:
+        <br>
+        <button type="button" data-demo="senior@caremate.app">Elder account</button>
+        <button type="button" data-demo="family@caremate.app">Family account</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+const $ = (s) => document.querySelector(s);
+let mode = 'login';
+let role = 'senior';
+
+const els = {
+  title: $('#formTitle'), hint: $('#formHint'), roleRow: $('#roleRow'),
+  nameField: $('#nameField'), langField: $('#langField'), submit: $('#submitBtn'),
+  switcher: $('#switcher'), toggle: $('#toggleMode'), notice: $('#notice'),
+  form: $('#authForm'), password: $('#password')
+};
+
+function render() {
+  const signup = mode === 'signup';
+  els.title.textContent = signup ? 'Create your account' : 'Sign in';
+  els.hint.textContent = signup
+    ? 'Pick the mode that matches who will hold the phone. You can link the two accounts afterwards with a care code.'
+    : 'Two modes, one account each: a simplified screen for the elder, and a fuller view for the family member who helps.';
+  els.roleRow.hidden = !signup;
+  els.nameField.hidden = !signup;
+  els.langField.hidden = !signup;
+  els.submit.textContent = signup ? 'Create account' : 'Sign in';
+  els.password.setAttribute('autocomplete', signup ? 'new-password' : 'current-password');
+  els.switcher.innerHTML = signup
+    ? 'Already have an account? <button type="button" id="toggleMode">Sign in instead</button>'
+    : 'New to CareMate? <button type="button" id="toggleMode">Create an account</button>';
+  document.getElementById('toggleMode').addEventListener('click', () => {
+    mode = signup ? 'login' : 'signup';
+    els.notice.textContent = '';
+    render();
+  });
+}
+
+document.querySelectorAll('.role').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    role = btn.dataset.role;
+    document.querySelectorAll('.role').forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+  });
+});
+
+document.querySelectorAll('[data-demo]').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    mode = 'login';
+    render();
+    $('#email').value = btn.dataset.demo;
+    $('#password').value = 'caremate123';
+    els.form.requestSubmit();
+  });
+});
+
+els.form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  els.notice.textContent = '';
+  els.submit.disabled = true;
+  const payload = {
+    email: $('#email').value.trim(),
+    password: $('#password').value
+  };
+  if (mode === 'signup') {
+    payload.name = $('#name').value.trim();
+    payload.role = role;
+    payload.language = $('#language').value;
+    if (!payload.name) { fail('Add the name to show on the screen.'); return; }
+  }
+  try {
+    const res = await fetch('/api/auth/' + (mode === 'signup' ? 'signup' : 'login'), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    const data = await res.json();
+    if (!res.ok) return fail(data.error || 'That did not work. Check the details and try again.');
+    location.href = data.user.role === 'senior' ? '/senior' : '/family';
+  } catch (err) {
+    fail('The server did not respond. Check that CareMate is still running.');
+  }
+});
+
+function fail(message) {
+  els.notice.textContent = message;
+  els.submit.disabled = false;
+}
+
+render();
+fetch('/api/me').then((r) => r.json()).then((d) => {
+  if (d.user) location.href = d.user.role === 'senior' ? '/senior' : '/family';
+}).catch(() => {});
+</script>
+</body>
+</html>
